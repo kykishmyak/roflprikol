@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Изображение с звуком</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer; /* Добавляем курсор-указатель для наглядности */
+        }
+    </style>
+</head>
+<body>
+    <img id="fullscreen-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4s8cFhLrBRzj287bmMHKHBRMrFQLDTBfB7w&s" alt="Fullscreen Image">
+    <audio id="sound" src="https://www.dropbox.com/scl/fi/5l9m2tn1nhf4tsam37ld9/910961fad6afd62226b5b9a4700bb002.mp3?rlkey=ugrwev88o23sa4rlphgve594l&dl=1"></audio>
+
+    <script>
+        document.getElementById('fullscreen-image').addEventListener('click', function() {
+            var audio = document.getElementById('sound');
+            audio.play().catch(function(error) {
+                console.error('Ошибка воспроизведения аудио:', error);
+            });
+        });
+    </script>
+</body>
+</html>
