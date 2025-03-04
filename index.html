@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Изображение с звуком</title>
+    <title>Изображение с звуком и видео</title>
     <style>
         body, html {
             margin: 0;
@@ -11,24 +11,52 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* Фон для красоты */
         }
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer; /* Добавляем курсор-указатель для наглядности */
+            cursor: pointer; /* Курсор-указатель */
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Центрирование видео */
+            max-width: 80%; /* Максимальная ширина видео */
+            max-height: 80%; /* Максимальная высота видео */
+            display: none; /* Скрываем видео по умолчанию */
         }
     </style>
 </head>
 <body>
     <img id="fullscreen-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4s8cFhLrBRzj287bmMHKHBRMrFQLDTBfB7w&s" alt="Fullscreen Image">
-    <audio id="sound" src="https://www.dropbox.com/scl/fi/12kmd3l6mf0o349g85tpg/compsemaha.mp3?rlkey=cgxgmi8dsv2mslf36m3g9kfa0&st=sq40lmza&dl=1"></audio>
+    <!-- Добавляем loop для зацикливания аудио -->
+    <audio id="sound" src="https://www.dropbox.com/scl/fi/12kmd3l6mf0o349g85tpg/compsemaha.mp3?rlkey=cgxgmi8dsv2mslf36m3g9kfa0&st=sq40lmza&dl=1" preload="auto" loop></audio>
+    <!-- Добавляем loop для зацикливания видео -->
+    <video id="video" controls loop>
+        <source src="https://clck.ru/3GpAeM" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
 
     <script>
         document.getElementById('fullscreen-image').addEventListener('click', function() {
             var audio = document.getElementById('sound');
+            var video = document.getElementById('video');
+
+            // Воспроизводим аудио
             audio.play().catch(function(error) {
                 console.error('Ошибка воспроизведения аудио:', error);
+            });
+
+            // Показываем и воспроизводим видео
+            video.style.display = 'block';
+            video.play().catch(function(error) {
+                console.error('Ошибка воспроизведения видео:', error);
             });
         });
     </script>
