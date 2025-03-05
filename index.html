@@ -14,31 +14,30 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: black; /* Фон для красоты */
+            background-color: black;
         }
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer; /* Курсор-указатель */
+            cursor: pointer;
         }
         video {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Центрирование видео */
-            max-width: 80%; /* Максимальная ширина видео */
-            max-height: 80%; /* Максимальная высота видео */
-            display: none; /* Скрываем видео по умолчанию */
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            display: none;
+            z-index: 1; /* Добавлено для правильного наложения */
         }
     </style>
 </head>
 <body>
     <img id="fullscreen-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4s8cFhLrBRzj287bmMHKHBRMrFQLDTBfB7w&s" alt="Fullscreen Image">
-    <!-- Добавляем loop для зацикливания аудио -->
-    <audio id="sound" src="https://www.dropbox.com/scl/fi/12kmd3l6mf0o349g85tpg/compsemaha.mp3?rlkey=cgxgmi8dsv2mslf36m3g9kfa0&st=sq40lmza&dl=1" preload="auto" loop></audio>
-    <!-- Добавляем loop для зацикливания видео -->
-    <video id="video" controls loop>
+    <audio id="sound" src="https://www.dropbox.com/scl/fi/ng80taozl5fiu9r38fzp6/burp2.mp3?rlkey=vzzhkr2jrkjxymrvrs9wfkx4t&st=3br6uftr&dl=1" loop></audio>
+    <video id="video" controls loop playsinline>
         <source src="https://clck.ru/3GpAeM" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
@@ -48,16 +47,18 @@
             var audio = document.getElementById('sound');
             var video = document.getElementById('video');
 
-            // Воспроизводим аудио
-            audio.play().catch(function(error) {
-                console.error('Ошибка воспроизведения аудио:', error);
-            });
-
-            // Показываем и воспроизводим видео
+            // Устанавливаем громкость и разблокируем аудио
+            audio.volume = 1.0;
+            audio.muted = false;
+            
+            // Показываем видео
             video.style.display = 'block';
-            video.play().catch(function(error) {
-                console.error('Ошибка воспроизведения видео:', error);
-            });
+            
+            // Обещаем воспроизвести оба элемента
+            Promise.all([
+                audio.play().catch(error => console.error('Ошибка аудио:', error)),
+                video.play().catch(error => console.error('Ошибка видео:', error))
+            ]);
         });
     </script>
 </body>
